@@ -9,6 +9,13 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("isInClient = " + liff.isInClient());
         console.log("loggedIn = " + liff.isLoggedIn());
         
+        // Auto-login if not logged in and in LINE client
+        if (!liff.isLoggedIn() && liff.isInClient()) {
+          console.log("Not logged in, redirecting to login...");
+          liff.login();
+          return;
+        }
+        
         // Setup share button
         var shareBtn = document.getElementById('shareBtn');
         if (shareBtn) {
