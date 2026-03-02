@@ -6,9 +6,8 @@ document.addEventListener("DOMContentLoaded", function() {
     .init({ liffId: process.env.LIFF_ID })
     .then(function() {
         console.log("Success! you can do something with LIFF API here.")
-        
-        alert("isInClient = " + liff.isInClient());
-        alert("loggedIn = " + liff.isLoggedIn());
+        console.log("isInClient = " + liff.isInClient());
+        console.log("loggedIn = " + liff.isLoggedIn());
         
         // Setup share button
         var shareBtn = document.getElementById('shareBtn');
