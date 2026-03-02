@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("Success! you can do something with LIFF API here.")
         
         alert("isInClient = " + liff.isInClient());
+        alert("loggedIn = " + liff.isLoggedIn());
         
         // Setup share button
         const shareBtn = document.getElementById('shareBtn');
@@ -20,27 +21,33 @@ document.addEventListener("DOMContentLoaded", function() {
     })
 });
 
-function shareToChat() {
+async function shareToChat() {
+  // Check if user is logged in first
+  if (!liff.isLoggedIn()) {
+    alert('You need to log in first. Redirecting to login...');
+    liff.login();
+    return;
+  }
+
   if (!liff.isApiAvailable('shareTargetPicker')) {
     alert('Share feature is not available in this environment');
     return;
   }
 
-  liff.shareTargetPicker([
-    {
-      type: 'text',
-      text: 'Check out this LIFF app! 🚀'
-    },
-    {
-      type: 'text',
-      text: window.location.href
-    }
-  ])
-  .then(() => {
+  try {
+    await liff.shareTargetPicker([
+      {
+        type: 'text',
+        text: '👋 Hello! This message was shared from my LIFF app 🚀'
+      },
+      {
+        type: 'text',
+        text: window.location.href
+      }
+    ]);
     console.log('Message shared successfully');
-  })
-  .catch((error) => {
+  } catch (error) {
     console.error('Error sharing message:', error);
-    alert('Failed to share message');
-  });
+    alert('Failed to share message: ' + error.message);
+  }
 }
