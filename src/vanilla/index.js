@@ -7,6 +7,8 @@ document.addEventListener("DOMContentLoaded", function() {
     .then(() => {
         console.log("Success! you can do something with LIFF API here.")
         
+        alert("isInClient = " + liff.isInClient());
+        
         // Setup share button
         const shareBtn = document.getElementById('shareBtn');
         if (shareBtn) {
